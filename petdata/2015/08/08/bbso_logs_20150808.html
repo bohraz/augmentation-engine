@@ -1,0 +1,159 @@
+<HTML>
+<HEAD>
+<TITLE>Big Bear Solar Observatory - Observing Log</TITLE>
+<BODY BGCOLOR=#ffffff>
+<TABLE BGCOLOR=gray WIDTH=100%>
+<TR><TD ALIGN=right WIDTH=30%></TD>
+    <TD ALIGN=right WIDTH=70%>
+        <FONT SIZE=7 COLOR=white><B>Observing Log</B></FONT></TD>
+</TR>
+</TABLE>
+<P><HR ALIGN=center SIZE=2>
+
+<H2>Observing Logs - 20150808</H2>
+<TABLE>
+<TR>
+    <TH VALIGN=top ALIGN=left>Observer:</TH>
+    <TD>John Varsik<BR></TD>
+</TR>
+<TR>
+    <TH VALIGN=top ALIGN=left>Weather:</TH>
+    <TD>Clear, calm at start.</TD>
+</TR>
+<TR>
+    <TH VALIGN=top ALIGN=left>Seeing:</TH>
+    <TD>3 (spicules, penumbral filaments visible)</TD>
+</TR>
+</TABLE>
+<H3>Optical Setup for the Telescopes</H3>
+<TABLE BORDER=3 bordercolor=#990099>
+<TR><TH></TH>
+    <TH ROWSPAN=2>H-alpha</TH>
+    <TH COLSPAN=5>NST</TH>
+</TR>
+<TR><TH></TH>
+    <TH COLSPAN=3>Coude</TH>
+    <TH WIDTH=80>Nasmyth</TH>
+<TR>
+<TR><TH ALIGN=left>Filter</TH>
+    <TD>Zeiss</TD>
+    <TD>Int.</TD>
+    <TD>VIS</TD>
+    <TD>NIRIS</TD>
+    <TD>None</TD>
+</TR>
+<TR><TH ALIGN=left>Wavelength</TH>
+    <TD>HaCL</TD>
+    <TD>7057 </TD>
+    <TD>Ha line walk </TD>
+    <TD>1565nm</TD>
+    <TD> </TD>
+</TR>
+<TR><TH ALIGN=left>Bandpass</TH>
+    <TD>0.25A</TD>
+    <TD>10A </TD>
+    <TD>0.08A </TD>
+    <TD> </TD>
+    <TD> </TD>
+</TR>
+<TR><TH ALIGN=left>Camera</TH>
+    <TD>Pulnix</TD>
+    <TD>PCO</TD>
+    <TD>PCO</TD>
+    <TD>Other</TD>
+    <TD>None</TD>
+</TR>
+<TR><TH ALIGN=left>FOV</TH>
+    <TD>full disk</TD>
+    <TD>77</TD>
+    <TD>70</TD>
+    <TD>80</TD>
+    <TD></TD>
+</TR>
+<TR><TH ALIGN=left>Feature</TH>
+    <TD>Fulldisc</TD>
+    <TD COLSPAN=3>Active Region NOAA </TD>
+</TR>
+<TR><TH ALIGN=left>Position</TH>
+    <TD>Fulldisc</TD>
+    <TD COLSPAN=5>101W 384S</TD>
+</TR>
+</TABLE>
+
+<H3>H-alpha Telescope</H3>
+<P><PRE>16:23:22  H-alpha   Fulldisk   Zeiss   HaCL   0.25A   Pulnix   full disk
+16:23:23  Start observations.  P angle set by program.  Cadence 60 sec.
+          Filter: 9 frames at H-alpha center line, 1 frame at Ha -0.75A.
+          Late start due to still bringing up network.
+19:12:24  Morning flat field acquired and accepted.
+20:14:07  Meridian flip completed.
+20:41:05  Afternoon flat field acquired and accepted.
+01:00:44  Stop observations.  Telescope stowed, dome closed.</PRE>
+
+<H3>NST</H3>
+<P><PRE>16:24:29  Need to get a couple more systems online before I can start
+          NST.
+17:01:07  We now have enough connections to run NST.  No problems
+          so far.
+17:16:10  No Dec force or counterweight motion.  Stop!  Restow telescope.
+          Will reboot DFM computers.
+17:33:15  DFM TCS#1 does not respond to pings.  Not sure if this is
+          normal.  Clearly TPTS can communicate with DFM TCS#1.
+17:47:09  Seems OK now after rebooting.  DFM TCS#2 is moving
+          force motors and counterweights correctly now.
+17:58:33  No ping response probably due to Windows firewall settings.
+18:05:44  Open M1, at disk center.  All systems OK for now.
+18:19:29  Rezero guider. Off about 30arcsec in both axes.
+18:26:18  Problem with AO308.  May be a loose cable.  Checking.
+18:42:22  Now crazy screen on AO308.  Windows Start menu
+          keeps disappearing.  Power cycle!
+18:44:57  Now no camera image on AO308.
+19:04:28  Apparently there is a loose connector on the back of
+          the Bittware box that is supposed to go to one of the
+          DSPs.  Don't know which one.
+19:35:51  Nicolas is here.  We are working on the problem.
+          M1 closed for now.  Network is OK.
+20:06:00  AO working now.
+20:15:58  Start TiO PCO and VIS on region NOAA 12396.
+20:22:19  Start NIRIS.  Scan -1000 to 2036 by 33 steps.  Polarimetry
+          mode.  16-bit FPI peak 27307, 12-bit peak -37.
+20:23:44  TiO PCO, 15 sec cadence, 1 ms exp, 100 fr/burst, 70 best.
+          VIS, 60 fr/burst, 25 best.  delay 15 sec, offset 0 steps
+          +/- 0.8A  9 ms
+          +/- 0.6A  12 ms
+          +/- 0.4A  15 ms
+              0.0A  20 ms
+
+20:24:02  NST        101W   384S   Active Region    NOAA 12396
+          Coude1          Int.	 7057 	10A 	PCO	 77
+          Coude2          VIS	 Ha line walk 	0.08A 	PCO	 70
+          Coude3          NIRIS	 1565nm	 	Teledyne 80
+          Nasmyth        None	  	 	None	 
+20:41:20  Seeing not as good now.
+21:39:44  Lost lock.  TPTS got in a funny state and I had to crash
+          out of it.  Lost the guider rezeroing for today.
+22:07:20  Stop for flats.
+22:11:20  Starting flat fields.
+22:27:22  Resume observations.  Seeing not as good as earlier.
+22:40:11  Stop observations.  Seeing is poor.
+23:17:14  Telescope stowed, dome closed.</PRE>
+
+<H3>Concluding Remarks</H3>
+<P>Late start today due to continuing computer network repair
+and problems with AO308.  Full disk H-alpha operated normally.
+
+NST observed region NOAA 12396 using TiO PCO, VIS and NIRIS.
+No flares noted.
+
+<P><HR ALIGN=center SIZE=2>
+<P><A HREF="http://www.bbso.njit.edu/"><IMG SRC="/Icons/bbsologo.jpg" 
+   ALIGN=right BORDER=0></A>
+<ADDRESS>
+<B>Comments:</B><BR>
+Webmaster
+<A HREF="mailto:webmaster@bbso.njit.edu">webmaster@bbso.njit.edu</A><BR>
+&copy; BBSO/NJIT - Automatically generated on August 08, 2015 at 18:01:00 [PDT]
+</ADDRESS>
+</BODY>
+</HTML>
+
