@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>filament_augmentation.generator.filament_dataset &mdash; Augmentation Engine 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Augmentation Engine
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Augmentation Engine</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>filament_augmentation.generator.filament_dataset</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for filament_augmentation.generator.filament_dataset</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span> <span class="nn">filament_augmentation.generator._filament_generator</span> <span class="kn">import</span> <span class="n">_FilamentGenerator</span>
+<span class="kn">from</span> <span class="nn">filament_augmentation.metadata.filament_metadata</span> <span class="kn">import</span> <span class="n">FilamentMetadata</span>
+
+
+<div class="viewcode-block" id="FilamentDataset"><a class="viewcode-back" href="../../../source/filament_augmentation.generator.html#filament_augmentation.generator.filament_dataset.FilamentDataset">[docs]</a><span class="k">class</span> <span class="nc">FilamentDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbso_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ann_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">end_time</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The constructor gets the image ids based on start and end time.</span>
+<span class="sd">        based on the image ids, filaments annotation index and their respective class labels</span>
+<span class="sd">        are initialized to dataset.</span>
+<span class="sd">        :param bbso_path: path to bsso full disk images.</span>
+<span class="sd">        :param ann_file: path to annotations file.</span>
+<span class="sd">        :param start_time: start time in YYYY:MM:DD HH:MM:SS.</span>
+<span class="sd">        :param end_time: end time in YYYY:MM:DD HH:MM:SS.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filament_metadata</span> <span class="o">=</span> <span class="n">FilamentMetadata</span><span class="p">(</span><span class="n">ann_file</span><span class="p">,</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
+        <span class="n">filament_metadata</span><span class="o">.</span><span class="n">parse_data</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bbso_img_ids</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">filament_metadata</span><span class="o">.</span><span class="n">bbso_img_ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filament_cutouts_data</span><span class="p">:</span> <span class="n">_FilamentGenerator</span> <span class="o">=</span> <span class="n">_FilamentGenerator</span><span class="p">(</span><span class="n">ann_file</span><span class="p">,</span> <span class="n">bbso_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbso_img_ids</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filament_cutouts_data</span><span class="o">.</span><span class="n">filament_data</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="n">anno</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">anno_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">anno</span><span class="p">)</span>
+        <span class="n">class_id</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">class_name</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">anno_tensor</span><span class="p">,</span> <span class="n">class_id</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">bbso_json</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;../..&#39;</span><span class="p">,</span> <span class="s1">&#39;petdata&#39;</span><span class="p">,</span> <span class="s1">&#39;bbso_json_data&#39;</span><span class="p">,</span> <span class="s1">&#39;2015_chir_data.json&#39;</span><span class="p">))</span>
+    <span class="n">transforms_json</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;../..&#39;</span><span class="p">,</span> <span class="s1">&#39;petdata&#39;</span><span class="p">,</span> <span class="s1">&#39;input_transformations&#39;</span><span class="p">,</span> <span class="s1">&#39;transforms.json&#39;</span><span class="p">))</span>
+    <span class="n">bbso_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;../..&#39;</span><span class="p">,</span> <span class="s1">&#39;petdata&#39;</span><span class="p">,</span> <span class="s1">&#39;2015&#39;</span><span class="p">))</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">FilamentDataset</span><span class="p">(</span><span class="n">bbso_path</span><span class="p">,</span><span class="n">bbso_json</span><span class="p">,</span><span class="s2">&quot;2015-08-05 17:36:15&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-08-11 18:15:17&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+    <span class="c1"># data_loader = FilamentDataLoader(dataset, 6, (1, 1, 1), 10)</span>
+    <span class="c1"># print(len(data_loader))</span>
+    <span class="c1"># for imgs, labels in data_loader:</span>
+    <span class="c1">#     print(&quot;Batch of images has shape: &quot;, imgs)</span>
+    <span class="c1">#     print(&quot;Batch of labels has shape: &quot;, labels)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Shreejaa Talla.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

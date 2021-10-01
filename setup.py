@@ -25,14 +25,14 @@ with open(requirement_path) as f:
 pkgs = find_packages(exclude=['tests.*', 'tests'])
 
 setuptools.setup(
-    name="demo_fa",
-    version="0.1.1",
+    name="augmentation_engine",
+    version="0.0.1",
     author="Shreejaa Talla",
     author_email="shreejaa.talla@gmail.com",
     description="Solar Filaments data augmentation demo package",
-    url="https://bitbucket.org/gsudmlab/bbso_fa/src/master/",
+    url="https://bitbucket.org/gsudmlab/augmentation_engine/src/master/",
     project_urls={
-        "Source": "https://bitbucket.org/gsudmlab/bbso_fa/src/master/",
+        "Source": "https://bitbucket.org/gsudmlab/augmentation_engine/src/master/",
     },
     packages = pkgs,
     package_dir={"filament_augmentation": "filament_augmentation"},
