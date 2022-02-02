@@ -25,11 +25,14 @@ With the deluge of image data produced by ground-based and space-borne observato
 pip install augmentation_engine
 ```
 
-    Looking in indexes: https://test.pypi.org/simple/
-    Collecting filamentaugmentation
-      Downloading https://test-files.pythonhosted.org/packages/45/45/4a66660af6982aec42ef1055c510120d3b6c105cbff4979b20a3a752c66d/filamentaugmentation-0.0.2-py3-none-any.whl (2.7 kB)
-    Installing collected packages: filamentaugmentation
-    Successfully installed filamentaugmentation-0.0.2
+    Requirement already satisfied: augmentation_engine in d:\gsu_assignments\semester_2\dl\augmentation_engine (0.0.1)
+    Requirement already satisfied: sortedcontainers in c:\users\shreejaa talla\pycharmprojects\bbso_fa\venv\lib\site-packages (from augmentation_engine) (2.4.0)
+    Requirement already satisfied: opencv_python in c:\users\shreejaa talla\pycharmprojects\bbso_fa\venv\lib\site-packages (from augmentation_engine) (4.5.3.56)
+    Requirement already satisfied: torchvision in c:\users\shreejaa talla\pycharmprojects\bbso_fa\venv\lib\site-packages (from augmentation_engine) (0.10.0)
+    Requirement already satisfied: pillow in c:\users\shreejaa talla\pycharmprojects\bbso_fa\venv\lib\site-packages (from augmentation_engine) (8.3.2)
+    Requirement already satisfied: numpy>=1.17.3 in c:\users\shreejaa talla\pycharmprojects\bbso_fa\venv\lib\site-packages (from opencv_python->augmentation_engine) (1.21.2)
+    Requirement already satisfied: torch==1.9.0 in c:\users\shreejaa talla\pycharmprojects\bbso_fa\venv\lib\site-packages (from torchvision->augmentation_engine) (1.9.0)
+    Requirement already satisfied: typing-extensions in c:\users\shreejaa talla\pycharmprojects\bbso_fa\venv\lib\site-packages (from torch==1.9.0->torchvision->augmentation_engine) (3.10.0.2)
     Note: you may need to restart the kernel to use updated packages.
     
 
@@ -39,6 +42,7 @@ pip install augmentation_engine
 ```python
 import os
 from torchvision import transforms
+import matplotlib.pyplot as plt
 
 from filament_augmentation.loader.filament_dataloader import FilamentDataLoader
 from filament_augmentation.generator.filament_dataset import FilamentDataset
@@ -64,7 +68,7 @@ filamentInfo.get_chirality_distribution()
 
 
 
-    (22, 30, 185)
+    (22, 30, 186)
 
 
 
@@ -86,7 +90,7 @@ dataset = FilamentDataset(bbso_path = bbso_path, ann_file = bbso_json,
 ```
 
     loading annotations into memory...
-    Done (t=0.05s)
+    Done (t=0.07s)
     creating index...
     index created!
     
@@ -146,20 +150,60 @@ for original_imgs, transformed_imgs, labels in data_loader:
     
 
 
-    ---------------------------------------------------------------------------
-
-    NameError                                 Traceback (most recent call last)
-
-    augmentation_process.ipynb in <module>
-          2     for org_img, img, label in zip(original_imgs ,transformed_imgs, labels):
-          3         print("Original image")
-    ----> 4         plt.imshow(org_img, cmap='gray')
-          5         plt.show()
-          6         print("Transformed image")
+    
+![png](document_images/output_18_1.png)
     
 
-    NameError: name 'plt' is not defined
 
+    Transformed image
+    
+
+
+    
+![png](document_images/output_18_3.png)
+    
+
+
+    Label 0
+    Original image
+    
+
+
+    
+![png](document_images/output_18_5.png)
+    
+
+
+    Transformed image
+    
+
+
+    
+![png](document_images/output_18_7.png)
+    
+
+
+    Label 1
+    Original image
+    
+
+
+    
+![png](document_images/output_18_9.png)
+    
+
+
+    Transformed image
+    
+
+
+    
+![png](document_images/output_18_11.png)
+    
+
+
+    Label -1
+    
 
 #### How to generate 12  filament images for every batch with ratio of left as 2, right chirality as 3  and unidentified as 1 for 5 batches with image dimension of 224x224 ?
 
@@ -178,42 +222,55 @@ for _, imgs, labels in data_loader:
 
     size of images  torch.Size([12, 224, 224])
     labels for each batch  tensor([[-1],
-            [ 1],
-            [ 1],
             [-1],
+            [ 1],
             [-1],
             [ 0],
             [ 1],
+            [-1],
+            [ 1],
+            [ 1],
+            [ 1],
+            [ 0],
+            [ 1]])
+    size of images  torch.Size([12, 224, 224])
+    labels for each batch  tensor([[ 0],
+            [ 1],
+            [-1],
+            [-1],
             [ 1],
             [-1],
             [ 1],
+            [ 1],
             [ 0],
+            [-1],
+            [ 1],
+            [ 1]])
+    size of images  torch.Size([12, 224, 224])
+    labels for each batch  tensor([[ 1],
+            [ 1],
+            [ 1],
+            [ 0],
+            [-1],
+            [ 1],
+            [-1],
+            [ 0],
+            [-1],
+            [ 1],
+            [-1],
             [ 1]])
     size of images  torch.Size([12, 224, 224])
     labels for each batch  tensor([[-1],
             [-1],
             [ 1],
             [ 1],
-            [-1],
-            [ 1],
-            [ 1],
-            [-1],
             [ 1],
             [ 0],
-            [ 0],
-            [ 1]])
-    size of images  torch.Size([12, 224, 224])
-    labels for each batch  tensor([[ 1],
-            [ 1],
-            [-1],
-            [ 1],
-            [-1],
-            [ 1],
             [ 1],
             [-1],
             [-1],
             [ 1],
-            [ 0],
+            [ 1],
             [ 0]])
     size of images  torch.Size([12, 224, 224])
     labels for each batch  tensor([[ 1],
@@ -221,26 +278,13 @@ for _, imgs, labels in data_loader:
             [-1],
             [ 1],
             [-1],
+            [ 0],
             [ 1],
             [ 0],
-            [-1],
-            [-1],
             [ 1],
-            [ 0],
+            [-1],
+            [-1],
             [ 1]])
-    size of images  torch.Size([12, 224, 224])
-    labels for each batch  tensor([[ 1],
-            [-1],
-            [ 1],
-            [-1],
-            [ 1],
-            [ 1],
-            [ 0],
-            [ 1],
-            [ 0],
-            [-1],
-            [ 1],
-            [-1]])
     
 
 #### How to generate 10 filament images for every batch only for left and right chirality for 5 batches with image dimension of 224x224 ?
@@ -262,14 +306,14 @@ for _, imgs, labels in data_loader:
 
     size of images  torch.Size([10, 224, 224])
     labels for each batch  tensor([[-1],
-            [ 1],
             [-1],
             [ 1],
             [ 1],
-            [-1],
-            [-1],
+            [ 1],
             [-1],
             [ 1],
+            [-1],
+            [-1],
             [ 1]])
     size of images  torch.Size([10, 224, 224])
     labels for each batch  tensor([[ 1],
@@ -279,40 +323,40 @@ for _, imgs, labels in data_loader:
             [-1],
             [-1],
             [ 1],
-            [-1],
             [ 1],
-            [ 1]])
-    size of images  torch.Size([10, 224, 224])
-    labels for each batch  tensor([[ 1],
-            [ 1],
-            [-1],
-            [-1],
-            [ 1],
-            [-1],
-            [-1],
-            [-1],
-            [ 1],
-            [ 1]])
-    size of images  torch.Size([10, 224, 224])
-    labels for each batch  tensor([[ 1],
-            [-1],
-            [ 1],
-            [ 1],
-            [-1],
-            [ 1],
-            [-1],
-            [-1],
             [ 1],
             [-1]])
+    size of images  torch.Size([10, 224, 224])
+    labels for each batch  tensor([[ 1],
+            [ 1],
+            [ 1],
+            [ 1],
+            [-1],
+            [ 1],
+            [-1],
+            [-1],
+            [-1],
+            [-1]])
+    size of images  torch.Size([10, 224, 224])
+    labels for each batch  tensor([[ 1],
+            [ 1],
+            [-1],
+            [-1],
+            [ 1],
+            [-1],
+            [-1],
+            [ 1],
+            [-1],
+            [ 1]])
     size of images  torch.Size([10, 224, 224])
     labels for each batch  tensor([[-1],
+            [-1],
+            [-1],
+            [ 1],
+            [ 1],
             [ 1],
             [-1],
             [ 1],
             [-1],
-            [ 1],
-            [ 1],
-            [-1],
-            [ 1],
-            [-1]])
+            [ 1]])
     

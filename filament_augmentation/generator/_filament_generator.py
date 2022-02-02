@@ -64,8 +64,8 @@ class _FilamentGenerator(CocoDetection):
         self.filament_data: list = filament_data
 
     def _load_image(self, id: int) -> Image.Image:
-        month, day, image_path = self.coco.loadImgs(id)[0]["file_name"].split(',')
-        return Image.open(os.path.join(self.root, month, day, image_path))
+        year, month, day, image_path = self.coco.loadImgs(id)[0]["file_name"].split(',')
+        return Image.open(os.path.join(self.root, year, month, day, image_path))
 
     def get_filament_cutouts(self, idx: int) -> PIL:
         """

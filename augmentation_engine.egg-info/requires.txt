@@ -1,0 +1,4 @@
+sortedcontainers
+opencv_python
+torchvision
+pillow
