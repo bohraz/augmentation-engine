@@ -37,8 +37,11 @@ pipelines:
           caches:
             - pip
           script:
-            - pipe: atlassian/pypi-publish:0.3.1
-              - variables:
-                  - PYPI_USER: $PYPI_USER
-                  - PYPI_PASSWORD: $PYPI_PASSWORD
-                  - DISTRIBUTIONS: sdist bdist_wheel
+          - pipe: atlassian/pypi-publish:0.3.1
+            variables:
+                PYPI_USERNAME: $PYPI_USER
+                PYPI_PASSWORD: $PYPI_PASSWORD
+                # REPOSITORY: '<string>' # Optional.
+                DISTRIBUTIONS: sdist bdist_wheel
+                # FOLDER: '<string>' # Optional.
+                # DEBUG: '<boolean>' # Optional.
