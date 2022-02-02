@@ -7,9 +7,6 @@ image: python:3.8
 
 pipelines:
   default:
-    ...
-  branches:
-    master:
       - step:
           name: Unit Tests
           deployment: test
@@ -32,6 +29,8 @@ pipelines:
               - make html
             artifacts:
               - sphinxdocs/_build/html/**
+  branches:
+    master:
       - step:
           name: python packaging
           deployment: production
@@ -39,7 +38,7 @@ pipelines:
             - pip
           script:
             - pipe: atlassian/pypi-publish:0.3.1
-              - variables:
-                  - PYPI_USER: $PYPI_USER
-                  - PYPI_PASSWORD: $PYPI_PASSWORD
-                  - DISTRIBUTIONS: sdist bdist_wheel
+               variables:
+                   PYPI_USER: $PYPI_USER
+                   PYPI_PASSWORD: $PYPI_PASSWORD
+                   DISTRIBUTIONS: sdist bdist_wheel
