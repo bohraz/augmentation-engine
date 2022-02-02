@@ -7,16 +7,19 @@ image: python:3.8
 
 pipelines:
   default:
-    - parallel:
+    ...
+  branches:
+    master:
       - step:
-          name: Test
+          name: Unit Tests
+          deployment: test
           caches:
             - pip
           script:
             - pip install -r requirements.txt
             - python -m tests.test_runner
       - step:
-            name: doc generator
+            name: Document Generator
             caches:
               - pip
             script: 
@@ -29,4 +32,14 @@ pipelines:
               - make html
             artifacts:
               - sphinxdocs/_build/html/**
-      
+      - step:
+          name: python packaging
+          deployment: production
+          caches:
+            - pip
+          script:
+            - pipe: atlassian/pypi-publish:0.3.1
+              - variables:
+                  - PYPI_USER: $PYPI_USER
+                  - PYPI_PASSWORD: $PYPI_PASSWORD
+                  - DISTRIBUTIONS: sdist bdist_wheel

@@ -26,7 +26,7 @@ pkgs = find_packages(exclude=['tests.*', 'tests'])
 
 setuptools.setup(
     name="augmentation_engine",
-    version="0.0.7",
+    version="0.0.9",
     author="Shreejaa Talla",
     author_email="shreejaa.talla@gmail.com",
     description="Solar Filaments data augmentation demo package",
@@ -50,7 +50,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
     ],
     data_files=[
-        ('petdata',['petdata/bbso_json_data/2015_chir_data.json']),
+        ('petdata',['petdata/bbso_json_data/2015_chir_data2.json']),
         ('petdata/sample/2015/08/01',data_files_01),
         ('petdata/sample/2015/08/02',data_files_02),
         ('petdata/sample/2015/08/03',data_files_03),
