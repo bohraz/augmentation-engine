@@ -49,18 +49,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
         "License :: OSI Approved :: MIT License",
     ],
-    data_files=[
-        ('petdata',['petdata/bbso_json_data/2015_chir_data2.json']),
-        ('petdata/sample/2015/08/01',data_files_01),
-        ('petdata/sample/2015/08/02',data_files_02),
-        ('petdata/sample/2015/08/03',data_files_03),
-        ('petdata/sample/2015/08/04',data_files_04),
-        ('petdata/sample/2015/08/05',data_files_05),
-        ('petdata/sample/2015/08/06',data_files_06),
-        ('petdata/sample/2015/08/07',data_files_07),
-        ('petdata/sample/2015/08/08',data_files_08),
-        ('petdata/sample/2015/08/09',data_files_09),
-    ],
-
 )
 
