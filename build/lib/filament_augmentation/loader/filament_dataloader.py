@@ -12,7 +12,7 @@ from filament_augmentation.augment._augmentation import _Augmentation
 class FilamentDataLoader(DataLoader):
 
     def __init__(self, dataset, batch_size: int, filament_ratio: tuple, n_batchs: int,
-                 transforms: list, image_dim: int):
+                 transforms: list, image_dim: int, image_type: str = 'rgb'):
         """
         :param dataset: Filament Dataset object.
         :param batch_size: each batch size.
@@ -37,6 +37,7 @@ class FilamentDataLoader(DataLoader):
         self.total_filaments: int = batch_size*n_batchs
         self.transforms: list = transforms
         self.image_dim: tuple  = (image_dim, image_dim)
+        self.image_type = image_type
         super().__init__(dataset.data, batch_size, shuffle=False, collate_fn=self.collate_fn,
                          sampler=CustomSampler(self.total_filaments), drop_last=False)
 
@@ -51,8 +52,10 @@ class FilamentDataLoader(DataLoader):
         """
         Counter and removed list are updated for next iteration.
         """
-        self._counter.update(c)
-        self._removed = self._removed.union(rm)
+        # self._counter.update(c)
+        # self._removed = self._removed.union(rm)
+        # print(len(self._removed))
+        # self._removed.clear()
         filament_list = filament_augmentation.augmented_data
         random.shuffle(filament_list)
         org_images = list()
@@ -64,16 +67,21 @@ class FilamentDataLoader(DataLoader):
         """
         if self.image_dim != (-1, -1):
             for org_image,image, classes in filament_list:
+                if self.image_type == 'rgb':
+                    image = image.convert('RGB')
                 org_image = cv2.resize(np.array(org_image), self.image_dim)
                 org_images.append(torch.from_numpy(org_image))
-                image = cv2.resize(np.array(image), self.image_dim)
-                images.append(torch.from_numpy(image))
-                class_ids.append(torch.tensor([classes]))
-            images = torch.stack(tuple(images))
+                image = np.array(image, dtype = np.float32)
+                image = cv2.resize(image, self.image_dim)
+                images.append(torch.from_numpy(image).T)
+                if classes == -1:
+                    classes = 2
+                class_ids.append(torch.tensor(classes))
+            image_tensor = torch.stack(tuple(images))
             classes = torch.stack(tuple(class_ids))
         else:
-            org_images, images, classes = zip(*filament_list)
-        return org_images, images, classes
+            org_images, image_tensor, classes = zip(*filament_list)
+        return org_images, image_tensor, classes
 
     def _get_iterator(self) -> '_BaseDataLoaderIter':
         """

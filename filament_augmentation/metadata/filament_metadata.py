@@ -53,13 +53,3 @@ class FilamentMetadata:
                     n_l += 1
         return n_l, n_r, n_u
 
-
-def main():
-    filamentInfo = FilamentMetadata('2015-08-05 17:36:15',
-                                    '2015-08-11 18:15:17')
-    L, R, U = filamentInfo.get_chirality_distribution()
-    print(L, R, U)
-
-
-if __name__ == "__main__":
-    main()

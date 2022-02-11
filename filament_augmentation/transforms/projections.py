@@ -1,3 +1,8 @@
+__author__ = "Shreejaa Talla"
+
+import numpy as np
+import math
+
 
 def latlon2pixel(lon, lat, image, header):
     # image = np.array(image)

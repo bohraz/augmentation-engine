@@ -16,6 +16,10 @@ venv/
 filament_augmentation/.ipynb_checkpoints/
 __pycache__/
 demo_fa.egg-info/
+.idea/
+build/
+dist/
+augmentation_engine.egg-info/
 
 
 # Compiled Python bytecode

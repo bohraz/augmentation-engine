@@ -1,9 +1,11 @@
+__author__ = "Shreejaa Talla"
+
+
 import os
 import PIL
 from PIL import Image
 import torch
 from torchvision.datasets.coco import CocoDetection
-from filament_augmentation.metadata.filament_metadata import FilamentMetadata
 
 
 def _has_only_empty_bbox(anno):
@@ -93,16 +95,3 @@ class _FilamentGenerator(CocoDetection):
             (int(boxes_xyxy[0][0]), int(boxes_xyxy[0][1]), int(boxes_xyxy[0][2]), int(boxes_xyxy[0][3])))
         return img_crop
 
-
-
-def main():
-    bbso_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..', 'petdata', '2015'))
-    filament_info = FilamentMetadata('2015-08-05 17:36:15','2015-08-11 18:15:17')
-    L, R, U = filament_info.get_chirality_distribution()
-    print(L, R, U)
-    # filament_cutout = _FilamentCutouts(_BBSO_JSON_FILE, bbso_path, filament_info.bbso_img_ids)
-    # filament_cutout.get_filament_cutouts(2)
-    # print("done")
-
-if __name__ == "__main__":
-    main()

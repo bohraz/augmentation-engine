@@ -1,6 +1,7 @@
 CONSTANTS.py
 LICENSE
 README.md
+setup.cfg
 setup.py
 augmentation_engine.egg-info/PKG-INFO
 augmentation_engine.egg-info/SOURCES.txt
@@ -10,6 +11,7 @@ augmentation_engine.egg-info/top_level.txt
 filament_augmentation/__init__.py
 filament_augmentation/augment/__init__.py
 filament_augmentation/augment/_augmentation.py
+filament_augmentation/augment/augment_error.py
 filament_augmentation/generator/__init__.py
 filament_augmentation/generator/_filament_generator.py
 filament_augmentation/generator/filament_dataset.py
@@ -19,6 +21,7 @@ filament_augmentation/metadata/__init__.py
 filament_augmentation/metadata/filament_metadata.py
 filament_augmentation/transforms/__init__.py
 filament_augmentation/transforms/_transformation.py
+filament_augmentation/transforms/projections.py
 filament_augmentation/utils/__init__.py
 filament_augmentation/utils/file_utilities.py
 filament_augmentation/utils/image_utils.py

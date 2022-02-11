@@ -1,9 +1,9 @@
-import os
-import PIL
+__author__ = "Shreejaa Talla"
 
+
+import PIL
 from CONSTANTS import _LEFT_CHIRALITY, _RIGHT_CHIRALITY, _UNDEFINED_CHIRALITY
 from filament_augmentation.generator._filament_generator import _FilamentGenerator
-from filament_augmentation.metadata.filament_metadata import FilamentMetadata
 from filament_augmentation.transforms import _transformation
 from filament_augmentation.transforms._transformation import _Transformation
 
@@ -215,24 +215,3 @@ class _Augmentation:
         transform = _Transformation(image, _transformation.get_transform(self.transforms))
         transformed_image = transform.transform_image()
         return [image, transformed_image, chirality_type]
-
-
-def main():
-    bbso_json = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), '../..', 'petdata', 'bbso_json_data', '2015_chir_data.json'))
-    transforms_json = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), '../..', 'petdata', 'input_transformations', 'transforms.json'))
-    bbso_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..', 'petdata', '2015'))
-    filament_info = FilamentMetadata(bbso_json,'2015-08-05 17:36:15', '2015-08-11 18:15:17')
-    filament_info.parse_data()
-    L, R, U = filament_info.get_chirality_distribution()
-    print(L, R, U)
-    filament_cutout = _FilamentGenerator(bbso_json, bbso_path, filament_info.bbso_img_ids)
-    augment = _Augmentation(filament_cutout, 6, (1, 1, 1), 6, dict(), set(), transforms_json)
-    augment.save_filaments()
-    print(bbso_path)
-    print(bbso_json)
-
-
-if __name__ == "__main__":
-    main()
