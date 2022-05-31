@@ -17,7 +17,7 @@ pkgs = find_packages(exclude=['tests.*', 'tests'])
 
 setuptools.setup(
     name="augmentation_engine",
-    version="0.1.1",
+    version="0.1.2",
     author="Shreejaa Talla",
     author_email="shreejaa.talla@gmail.com",
     description="Solar Filaments data augmentation demo package",

@@ -9,7 +9,7 @@ from torch.utils.data import DataLoader, Sampler
 from typing import Iterator
 from torch.utils.data._utils.fetch import _BaseDatasetFetcher
 from torch.utils.data.dataloader import _BaseDataLoaderIter
-from filament_augmentation.augment._augmentation import _Augmentation
+from filament_augmentation.augment.augmentation import _Augmentation
 
 
 class FilamentDataLoader(DataLoader):

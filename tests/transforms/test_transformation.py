@@ -3,8 +3,8 @@ import os
 
 import PIL
 from filament_augmentation.utils.image_utils import get_image
-from filament_augmentation.transforms._transformation import _Transformation
-from filament_augmentation.transforms import _transformation
+from filament_augmentation.transforms.transformation import _Transformation
+from filament_augmentation.transforms import transformation
 from torchvision import transforms
 
 class TestTransforms(unittest.TestCase):
@@ -23,11 +23,11 @@ class TestTransforms(unittest.TestCase):
         """Test if list of transforms objects is convert to transforms.compose list"""
         image_path = os.path.abspath(os.path.join(os.path.dirname(__file__),"..","test_data","transforms","tranform_test_image.jpg"))
         image = get_image(image_path)
-        transformation = _Transformation(image, _transformation.get_transform(self.transforms_list))
+        transformation = _Transformation(image, transformation.get_transform(self.transforms_list))
         transformed_img = transformation.transform_image()
         self.assertIsInstance(transformed_img, PIL.Image.Image)
 
     def test_get_transforms_t1(self):
         """Test if list of non-transforms objects throws error"""
-        transform_compose = _transformation.get_transform(self.transforms_list)
+        transform_compose = transformation.get_transform(self.transforms_list)
         self.assertIsInstance(transform_compose, transforms.Compose)

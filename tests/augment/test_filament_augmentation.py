@@ -1,6 +1,6 @@
 import unittest
 import os
-from filament_augmentation.augment._augmentation import _Augmentation
+from filament_augmentation.augment.augmentation import _Augmentation
 
 class TestAugment(unittest.TestCase):
 

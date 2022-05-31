@@ -3,9 +3,9 @@ __author__ = "Shreejaa Talla"
 
 import PIL
 from CONSTANTS import _LEFT_CHIRALITY, _RIGHT_CHIRALITY, _UNDEFINED_CHIRALITY
-from filament_augmentation.generator._filament_generator import _FilamentGenerator
-from filament_augmentation.transforms import _transformation
-from filament_augmentation.transforms._transformation import _Transformation
+from filament_augmentation.generator.filament_generator import _FilamentGenerator
+from filament_augmentation.transforms import transformation
+from filament_augmentation.transforms.transformation import _Transformation
 
 
 class _Augmentation:
@@ -212,6 +212,6 @@ class _Augmentation:
 
             :return: list of transformed image and type
             """
-        transform = _Transformation(image, _transformation.get_transform(self.transforms))
+        transform = _Transformation(image, transformation.get_transform(self.transforms))
         transformed_image = transform.transform_image()
         return [image, transformed_image, chirality_type]

@@ -1,6 +1,6 @@
 import unittest
 import os
-from filament_augmentation.generator._filament_generator import _FilamentGenerator
+from filament_augmentation.generator.filament_generator import _FilamentGenerator
 
 class TestCutouts(unittest.TestCase):
 

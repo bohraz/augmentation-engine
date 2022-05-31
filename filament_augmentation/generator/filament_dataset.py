@@ -4,7 +4,7 @@ __author__ = "Shreejaa Talla"
 import torch
 from torch.utils.data import Dataset
 
-from filament_augmentation.generator._filament_generator import _FilamentGenerator
+from filament_augmentation.generator.filament_generator import _FilamentGenerator
 from filament_augmentation.metadata.filament_metadata import FilamentMetadata
 
 
