@@ -65,7 +65,7 @@ def update_header(header, pcorrect, bcorrect):
     return updated_header
 
 
-def pixel2latlon(header, pcorrect, bcorrect):
+def pixel2latlon(header):
     """
     pcorrect - (artifically rotated, telescope) sun's rotation axes based on the center of solar disk.
     based on the line of sight.
@@ -87,8 +87,8 @@ def pixel2latlon(header, pcorrect, bcorrect):
     cosb0 = header['cosb0']
     sinp0 = header['sinp0']
 
-    for i in range(nx): # Insead of nx add bounding boxes values instead of pixels
-        for j in range(nx): # Insead of nx add bounding boxes values instead of pixels
+    for i in range(1259,1455):
+        for j in range(565,742):
             x = i - x0
             y = j - y0
             rhoi2 = x ** 2 + y ** 2
@@ -158,15 +158,17 @@ if __name__ == "__main__":
     """
     Full disk heliographic project
     """
-    image_file = fits.open(r'D:\GSU_Assignments\Semester_2\DL\augmentation_engine\bbso_halph_fl_20150831_181839.fts')
+    image_file = fits.open(r'D:\GSU_Assignments\Semester_2\DL\backup\augmentation_engine\bbso_halph_fl_20150831_181839.fts')
     header = update_header(image_file[0].header, 0, 0)
-    ilat, ilon, header = pixel2latlon(header, 0, 0)
-    img = Image.open(r'D:\GSU_Assignments\2015\08\31\bbso_halph_fr_20150831_181839.jpg')
+    ilat, ilon, header = pixel2latlon(header)
+    c_ilat = ilat[1259:1455, 565:742]
+    c_ilon = ilon[1259:1455, 565:742]
+    img = Image.open(r'D:\GSU_Assignments\Semester_2\DL\augmentation_engine_backup\evalutate_augmentation_engine\filament_images\L\2015083118183905.jpg')
     # img = Image.open(
     #     r'D:\GSU_Assignments\Semester_2\DL\augmentation_engine_backup\evalutate_augmentation_engine\filament_images\L\2015083118183905.jpg')
     # img = resize_image(img, (565, 1259))
-    img = img.transpose(Image.ROTATE_270)
-    plt.pcolor(ilon, ilat, img, cmap='gray')
+    # img = img.transpose(Image.ROTATE_270)
+    plt.pcolor(c_ilon, c_ilat, img, cmap='gray')
     # plt.axis('off')
     # img = fig2img(plt)
     # img = img.convert('L')
