@@ -98,6 +98,7 @@ dataset = FilamentDataset(bbso_path = bbso_path, ann_file = bbso_json,
 ### Setup transformations for data augmentation
 
 The transformations function can be refered from [torchvision transforms](https://pytorch.org/vision/0.8/transforms.html)
+- To create custom transformation refer : [Custom Transforms](https://bitbucket.org/gsudmlab/augmentation_engine/src/dev/README_custom_transforms.md)
 - Here transforms variable should have list of torchvision transforms functions as shown below: 
 
 
