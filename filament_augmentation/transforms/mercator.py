@@ -139,7 +139,7 @@ def latlon2pixel(lon, lat, image, header):
 
                     weight = np.matmul(wx,wy)
                     # sum_w = sum(sum(weight*data))
-                    vmap[i, j] = sum(sum(weight*data)) / 4
+                    vmap[i, j] = sum(sum(weight*data)) / 4 #vmap[545,1259] = [645,1239]
                 else:
                     vmap[i, j] = np.nan
 
@@ -147,6 +147,7 @@ def latlon2pixel(lon, lat, image, header):
                 vmap[i, j] = np.nan
 
     return vmap
+
 
 def lat_lon(pixel):
     R = 6.96
