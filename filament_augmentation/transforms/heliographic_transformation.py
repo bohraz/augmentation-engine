@@ -120,10 +120,10 @@ class Heliographic:
                         self.ilat[i, j] = math.asin(ys / radsol)
                         self.ilon[i, j] = math.asin(xs / (radsol * math.cos(self.ilat[i, j])))
 
-
+## sample example
+## get the following image data from "https://bitbucket.org/gsudmlab/bbso_data/downloads/" in 2015.zip file.
 if __name__ == "__main__":
-    img = Image.open(
-        r'D:\GSU_Assignments\Semester_2\DL\augmentation_engine_backup\evalutate_augmentation_engine\filament_images\L\2015083118183905.jpg')
+    img = Image.open(r'L\2015083118183905.jpg')
     flip = T.Compose([Heliographic(30, 45), T.ToPILImage()])
     header ={
             "CRPIX1": 1024,
