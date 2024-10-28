@@ -1,0 +1,42 @@
+CDelt1 and CDelt2, CRPIX1, CRPIX2.
+Header is given as a dict, should I convert it into a list?
+
+
+Fix image error from __name == main
+Extend compose with image class
+Benchmark
+
+heliographic_transformation.py imports numpy as np, redlines because numpy is not in the project requirements(requirements.txt?), but it is in the requirements_backup.txt so should I be using that one?
+
+Two commits reference heliographic_transformation.py. No functional difference between them.
+
+Worked before because bbox and ann_obj(header) data manually entered in if name == main part at bottom of heliographic_transformation.py when running script directly, which explains the lack of relative import for projection_helper at top of script.
+
+Even that part doesn't work unless I manually add an image since the image used is a reference to Shreejaa's file path.
+
+Potential solutions:
+
+1. Extend PyTorch Compose to handle a Special Image Class that includes metadata (I think this might be the best).
+2. Modify Heliographic to expect Metadata from external source.
+3. Apply Heliographic in the data-loading loop instead of T.Compose.
+
+1. Extend PyTorch Compose to Handle Special Image Class(my favorite)
+
+    How it works:
+	Custom Image Class that holds all potentially necessary data about an image like header, image, bbox.
+	Override Compose's __call__ method to take in a CustomImage.
+	CustomComposeCall should check if the transform being applied is native or customly made.
+	If native then only pass the image, else pass the image class which includes the data list as expected.
+
+2. Modify Heliographic to Expect Metadata from External Source
+Instead of passing the annotation data inside the __call__ method, fetch it during execution.
+
+    How it works:
+        When __call__ executes, it fetches the correct annotation data based on the image being processed.
+
+3. Apply Heliographic in Dataset or DataLoader Loop
+
+Instead of trying to fit your transform into T.Compose, apply it within the data-loading loop.
+
+    How it works:
+        In your training or inference loop, after loading the image and annotation, manually apply the Heliographic transform before sending the data to the model.

@@ -47,8 +47,9 @@ class Heliographic:
         """
         Arranging latitude and longitude values based on image.
         """
+
         fig, ax = plt.subplots(1)
-        ax.pcolor(self.ilon, self.ilat, img, cmap='gray')
+        ax.pcolor(self.ilon, self.ilat, img, cmap='gray', shading='auto')
         ax.axis('off')
         result_img = pltobj2img(plt)
         toTensor = T.ToTensor()
@@ -59,10 +60,11 @@ class Heliographic:
         """
         Initializing Latitude and longitude based on the size of filament.
         """
-        self.ilat = np.empty((int(px4) + 1, int(px3)))
+        self.ilat = np.empty((int(px4), int(px3)))
         self.ilat[:] = np.nan
-        self.ilon = np.empty((int(px4) + 1, int(px3)))
+        self.ilon = np.empty((int(px4), int(px3)))
         self.ilon[:] = np.nan
+
         """
         Get the values from header.
         """
@@ -123,24 +125,30 @@ class Heliographic:
 ## sample example
 ## get the following image data from "https://bitbucket.org/gsudmlab/bbso_data/downloads/" in 2015.zip file.
 if __name__ == "__main__":
-    img = Image.open(r'L\2015083118183905.jpg')
+    img = Image.open(r'bbso_halph_fr_20150801_174814.jpg')#.convert('L')
     flip = T.Compose([Heliographic(30, 45), T.ToPILImage()])
     header ={
-            "CRPIX1": 1024,
-            "CRPIX2": 1025,
+            "CRPIX1": 1026,
+            "CRPIX2": 1024,
             "SOLAR_P": 0.0,
-            "SOLAR_B0": 7.17546,
-            "IMAGE_R0": 951,
+            "SOLAR_B0": 5.78129,
+            "IMAGE_R0": 946,
             "CDELT1": 1.0015,
             "CDELT2": 1.0015
         }
     bbox = [
-                565.034947578632,
-                1259.8227658512233,
-                177.12730903644547,
-                195.72041937094355
-            ]
-    data = [img ,header, bbox]
+        855.6774837743385,
+        1584.6046430354468,
+        133.3379930104843,
+        43.797204193709604
+    ]
+    # bbox = [
+    #             565.034947578632,
+    #             1259.8227658512233,
+    #             177.12730903644547,
+    #             195.72041937094355
+    #         ]
+    data = [img, header, bbox]
     flip_img = flip(data)
     plt.imshow(flip_img, cmap="gray")
     plt.show()

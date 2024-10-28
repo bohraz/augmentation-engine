@@ -1,0 +1,123 @@
+SIMPLE  =                    T / file does conform to FITS standard
+BITPIX  =                   16 / number of bits per data pixel
+NAXIS   =                    2 / number of data axes
+NAXIS1  =                 2048 / length of data axis 1
+NAXIS2  =                 2048 / length of data axis 2
+EXTEND  =                    T / FITS dataset may contain extensions
+COMMENT Latest FITS format is defined in Astronomy & Astrophysics (2010)
+COMMENT 524, A42. This Level 0 header does not conform with WCS or
+COMMENT Solar Soft conventions.
+DATE-OBS= '2016-08-31T18:18:34' / Observation start date and time (UTC)
+FILENAME= '20160831181834Ch.fts' / Original file name
+JPEG-Q  =                   90 / JPEG compression quality, 0..100 (ISOON)
+BZERO   =                   0. / Zero point of scaling to physical values
+BSCALE  =                   1. / Scale factor for scaling to physical values
+COMMENT ISOON camera parameters & stats
+EXPTIME =   0.0284652282063827 / Exposure time in seconds (GONG)
+EXPTYPE = 'Image   '           / Image type
+NSUMMED =                    4 / No. of exposures summed for this image (GONG)
+CCD_TMP =                    0 / CCD temperature in Celcius
+CAM_TMP =                    0 / Camera electronics temperature in Celcius
+CAMTYPE =                    0 / Camera type
+NUM_POL =                    0 / Number of polarization states
+RMS_XROI=                  960 / X starting position of RMS ROI box (GONG)
+RMS_YROI=                  960 / Y starting position of RMS ROI box (GONG)
+RMS_SIZE=                  181 / Axis length of RMS ROI box (GONG)
+RMS     =     3198.29432935549 / RMS of pixel values in RMS ROI box (GONG)
+DARKFILE= 'DARK.fts'           / Dark current file applied
+GAINFILE= 'FLAT.fts'           / Flat field file applied
+OBS-QUAL=                   0. / Smaller is better; >40 no good
+HA-OFF  =                   0. / [arcsec] Hour Angle offset
+DEC-OFF =                   0. / [arcsec] Declination offset
+COMMENT ISOON image coordinate type
+CTYPE1  = 'SOLAR E-W'          / Image fast axis type
+CTYPE2  = 'SOLAR S-N'          / Image slow axis type
+CRPIX1  =                1024. / [pix] Reference pixel location (1 based)
+CRPIX2  =                1024. / [pix] Reference pixel location (1 based)
+CRVAL1  =                   0. / [pix] E-W offset from sun center
+CRVAL2  =                   0. / [pix] S-N offset from sun center
+CDELT1  =                   0. / [arcsec/pix] E-W
+CDELT2  =                   0. / [arcsec/pix] S-N
+CROTA1  =                   0. / [arcdeg]
+CROTA2  =                   0. / [arcdeg]
+RADIUS  =                   0. / [pix] solar radius
+COMMENT ISOON limb fit results
+FIT-X0  =                   0. / [pix] ellipse center
+FIT-Y0  =                   0. / [pix] ellipse center
+FIT-MAJ =                   0. / [pix] ellipse fit major (semi) axis
+FIT-MNR =                   0. / [pix] ellipse fit minor (semi) axis
+FIT-ANG =                   0. / [arcdeg] ellipse fit axis rotation
+COMMENT ISOON optical setup
+WAVELNTH=               6564.2 / [A] exact wavelength of obs (GONG)
+POLARIZR= 'out     '           / Polarization optics out of light path
+OBJ-SCAL= 'full disk'          / image scale
+SHUTTLE =                   0. / [mm] position of field-lens shuttle
+APERTURE= '7cm     '           / effective telescope aperture (GONG)
+FOCUS   =                   0. / [mm] position of Cooke shuttle
+COMMENT Ephemeris Parameters from GONG site ephemeris
+OBJECT  = 'SUN     '           / SUN
+HA-OBJ  =     23.8007475394877 / [arcdeg] sun's local hour angle (+=West)
+DEC-OBJ =     8.28375453140401 / [arcdeg] sun's declination (+=North)
+AZ-OBJ  =                   0. / [arcdeg] sun's azimuth
+EL-OBJ  =     45.2813989046386 / [arcdeg] sun's elevation
+ETA-OBJ =    -14.4099335820229 / [arcdeg] sun's parallactic angle (+=North)
+SOLAR-P =     21.0815923335179 / [arcdeg] solar P angle
+SOLAR-B0=     7.19199561436799 / [arcdeg] solar B0 angle
+SOLAR-L0=     295.564595284451 / [arcdeg] Carrington Longitude
+SOLAR-SR=                 2181 / Synodic Rotation Number
+SOLAR-R =      950.82052747569 / [arcsec] solar semi-diameter
+COMMENT Observing site (GONG)
+TELESCOP= 'CT      '           / Telescope
+ORIGIN  = 'GONG    '           / Tape writing institution
+SITE-LON=    -70.8054700044651 / [arcdeg] Site's longitude (+=East)
+SITE-LAT=    -30.1678300182246 / [arcdeg] Site's latitude (+=North)
+CCD-ROT =   -0.600280777281904 / [arcdeg] CCD camera angle
+COMMENT ISOON image brightness calibration
+BC-METHD= 'radial  '           / Calibration method
+BC-SETPT=                3200. / [a/d cts] ROI setpoint (GONG)
+BC-VALUE=                3205. / [a/d cts] central intensity (GONG)
+BC-SCALE=    0.998439937597504 / scale factor applied (GONG)
+BC-TILT1=                   0. / plane tilt removed:
+BC-TILT2=                   0. / plane = t[1] + t[2]*x + t[3]*y
+BC-TILT3=                   0. /
+DISKPRO1=                   0. / Disk Profile Coefs.: p[]
+DISKPRO2=                   0. / phi = 1 - cosT*ln(1 + 1/cosT)
+DISKPRO3=                   0. / profile = p[1] + p[2]*cosT + p[3]*phi
+COMMENT GONG parameters
+J2000   =       6087.262860475 / Julian 2000 date
+LST     =          3.214516502 / Local apparent sidereal time (radians)
+ZENITH  =          0.780486826 / Zenith distance (radians)
+RA      =          2.799115093 / Right ascension (radians)
+DEC     =          0.144578791 / Declination (radians)
+PA      =          0.368038536 / Solar position angle (radians)
+HA      =          0.415401409 / Hour angle (radians)
+BETA    =         -0.251500786 / Parallactic angle (radians)
+EROLL   =          -0.51189522 / Ephemeris roll angle (radians)
+EPITCH  =         -0.617988695 / Ephemeris pitch angle (radians)
+EROTATOR=         -0.010482424 / Ephemeris rotator angle (radians)
+ROLL    =         -0.511854239 / Roll position (radians)
+PITCH   =          -0.61973357 / Pitch position (radians)
+ROTATOR =         -0.010476876 / Rotator position (radians)
+OFFSET  =                   4. / Per site camera offset angle (degrees,+=CCW)
+SMEAR   =                0.012 / Camera smear correction parameter
+CAMERA  = 'DVC 4000M-CL'       / Camera Model
+CAMERASN=                 3342 / Camera serial number
+TIME-OBS= '18:18:34'           / Observation start time (UTC)
+SHARPNSS=   0.0137112276269785 / Image sharpness quantifier (0=Worst,1=Best)
+SKYBRITE=                   58 / Average of square regions in four corners
+HASERNUM= 'N/A     '           / H-Alpha filter Serial Number
+HAVERSN =                  1.6 / H-Alpha filter Firmware Version
+HAERRCOD=                    0 / H-Alpha filter Error Code (0=Good)
+HAONBAND=                    0 / Filter On-Band status (0=Controlling,1=Setpt)
+HACNTRWL=               6564.2 / H-Alpha filter current Center Wavelength
+HAWNGSHF=                  -1. / H-Alpha filter Wavelength Shift setting
+HAHT1PWM=                   0. / Filter Heater 1 Power Module setting (0-100%)
+HALMTPWM=                 1023 / Filter Power Modules Limit setting (<=1023)
+HATEMP1 =               102.28 / Filter Heater 1 current Temperature (F)
+HAVOLTS =                11.17 / H-Alpha filter Current Voltage
+HAPOTPOS=                    0 / Filter calibration Pot Postion (0=Normal)
+HATEMP2 =               133.99 / Filter Heater 2 current Temperature (F)
+HAHT2PWM=                43.89 / Filter Heater 2 Power Module setting (0-100%)
+HATURNON=                  104 / H-Alpha filter Turn On count
+HA-AGE  =              3439225 / H-Alpha filter power-on Age in minutes
+END
