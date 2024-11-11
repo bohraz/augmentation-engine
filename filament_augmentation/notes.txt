@@ -40,3 +40,29 @@ Instead of trying to fit your transform into T.Compose, apply it within the data
 
     How it works:
         In your training or inference loop, after loading the image and annotation, manually apply the Heliographic transform before sending the data to the model.
+
+
+10/28
+I kept getting image dimensions incompatible with ilat and ilon error, so I tried various ways of resizing the image to fit. That yielded transformations on the entire image, rather than just the filament.
+
+The issue came from processing the entire BBSO image instead of just the filament. I converted the image to a numpy array and sliced it using the bounding box data to get just the filament. It seems to work now.
+
+Issue 1: Whenever I turn grid on, there are two grids instead of just one. I'm not sure if that's a serious problem or not, but if it's worth it I could figure out why that's happening.
+
+Issue 2: Whenever bcorrect is set above 91, the following warning is sent
+UserWarning: The input coordinates to pcolormesh are interpreted as cell centers, but are not monotonically increasing or decreasing. This may lead to incorrectly calculated cell edges, in which case, please supply explicit cell edges to pcolormesh.
+  ax.pcolormesh(self.ilon, self.ilat, cutout, cmap='gray', shading='nearest')
+
+
+Point of reference wrong
+Image incorrect / data incorrect from json value
+
+To Do:
+Draw bounding box around filament in original image to verify location working with is correct
+Full image transformation like the slideshow
+Run Mercator projection, see what it gives, maybe some are coming from there. (run each file with a __name__ = __main__). Mercator was supposed to be related to heliographic in some way.
+Understand exactly what pcolormesh/pcolor does in heliographic.
+
+Take more initiative.
+
+11/11

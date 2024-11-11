@@ -1,10 +1,12 @@
 import torch
 import torchvision.transforms as T
 import matplotlib.pyplot as plt
-from PIL import Image
+from PIL import Image, ImageDraw
 import math
 import numpy as np
 from projection_helper import update_header_info, pltobj2img
+from time import perf_counter
+from torchvision.transforms.functional import resize
 
 
 class Heliographic:
@@ -41,6 +43,7 @@ class Heliographic:
         annotation object and bounding box values.
         :return: Image tensor.
         """
+
         img, ann_obj, bbox = data
         self.ann_obj = update_header_info(ann_obj, self.pcorrect, self.bcorrect)
         self.__project(bbox)
@@ -49,8 +52,40 @@ class Heliographic:
         """
 
         fig, ax = plt.subplots(1)
-        ax.pcolor(self.ilon, self.ilat, img, cmap='gray', shading='auto')
+
+        # Convert img to numpy array
+        img_array = np.array(img)
+
+        px1, px2 = bbox[0], bbox[1]  # Top-left point
+        px3, px4 = bbox[2], bbox[3]  # Width and height
+
+        # Round bbox floats to integers for slicing and create image cutout(y comes first in numpy)
+        x1, y1 = int(round(px1)), int(round(px2))
+        x2, y2 = int(round(px1 + px3)), int(round(px2 + px4))
+
+        shading = 'flat' # or 'nearest'
+        if shading == 'flat':
+            x1 += 1
+            y1 += 1
+
+        cutout = img_array[y1:y2, x1:x2]
+
+        #Draw rectangle around cutout area
+        shape = [(x1,y1), (x2,y2)]
+
+        img1 = ImageDraw.Draw(img)
+        img1.rectangle(shape, width=10, fill=None, outline="white")
+        img.show()
+
+        # for the bcorrect above 91 error, causes 3d transformation?
+        # self.ilat = np.sort(self.ilat, axis=0)
+        # self.ilon = np.sort(self.ilon, axis=1)
+
+        ax.pcolormesh(self.ilon, self.ilat, cutout, cmap='gray', shading=shading)
+
+        #ax.set_title("Heliographic Transformation Visualization")
         ax.axis('off')
+
         result_img = pltobj2img(plt)
         toTensor = T.ToTensor()
         return toTensor(result_img)
@@ -125,30 +160,35 @@ class Heliographic:
 ## sample example
 ## get the following image data from "https://bitbucket.org/gsudmlab/bbso_data/downloads/" in 2015.zip file.
 if __name__ == "__main__":
-    img = Image.open(r'bbso_halph_fr_20150801_174814.jpg')#.convert('L')
-    flip = T.Compose([Heliographic(30, 45), T.ToPILImage()])
-    header ={
-            "CRPIX1": 1026,
-            "CRPIX2": 1024,
-            "SOLAR_P": 0.0,
-            "SOLAR_B0": 5.78129,
-            "IMAGE_R0": 946,
-            "CDELT1": 1.0015,
-            "CDELT2": 1.0015
-        }
-    bbox = [
-        855.6774837743385,
-        1584.6046430354468,
-        133.3379930104843,
-        43.797204193709604
-    ]
+    img = Image.open(r'bbso_halph_fr_20150807_192111.jpg')#.convert('L') #2015083118183??
+    flip = T.Compose([Heliographic(30, 30), T.ToPILImage()])
+    header = {
+        "CRPIX1": 1026,
+        "CRPIX2": 1026,
+        "SOLAR_P": 0.0,
+        "SOLAR_B0": 6.19041,
+        "IMAGE_R0": 946,
+        "CDELT1": 1.0015,
+        "CDELT2": 1.0015
+    }
     # bbox = [
-    #             565.034947578632,
-    #             1259.8227658512233,
-    #             177.12730903644547,
-    #             195.72041937094355
-    #         ]
+    #     1252.961907139291,
+    #     1308.3809785322017,
+    #     70.13409885172246,
+    #     49.678382426360486
+    # ]
+    bbox = [
+        303.22865701447836,
+        1070.7044433349974,
+        105.20119820269599,
+        237.6764852720919
+    ]
+
+    start = perf_counter()
     data = [img, header, bbox]
     flip_img = flip(data)
+    end = perf_counter()
+    print("BENCHMARK: ", end - start)
+
     plt.imshow(flip_img, cmap="gray")
     plt.show()

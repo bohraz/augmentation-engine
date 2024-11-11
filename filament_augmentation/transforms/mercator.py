@@ -4,17 +4,19 @@ from PIL import Image
 import cv2
 import matplotlib.pyplot as plt
 from astropy.io import fits
+from time import perf_counter
+
 
 def update_header(header, pcorrect, bcorrect):
     sinrhomax = 0.997
 
     updated_header = dict()
-    x0 = header['CRPIX1']
-    y0 = header['CRPIX2']
-    p0 = header['SOLAR_P']
-    b0 = header['SOLAR_B0']
-    r0 = header['IMAGE_R0']
-    pixsize = header['CDELT1']
+    x0 = header.get('CRPIX1', 1026)  #header['CRPIX1']
+    y0 = header.get('CRPIX2', 1026)
+    p0 = header.get('SOLAR_P', 0.0)
+    b0 = header.get('SOLAR_B0', 6.19041)
+    r0 = header.get('IMAGE_R0', 946)
+    pixsize = header.get('CDELT1', 1.0015)
 
     p0 = p0 + pcorrect
     b0 = b0 + bcorrect
@@ -57,6 +59,7 @@ def update_header(header, pcorrect, bcorrect):
     updated_header['px4'] = int(updated_header['px2'] + 195.72041937094355)
     return updated_header
 
+
 # def resize_image(image, bbox):
 #     img1 = [[22]*2048]*2048
 #     img1 = np.array(img1)
@@ -69,8 +72,8 @@ def latlon2pixel(lon, lat, image, header):
     # image = np.array(image)
     size = len(lon)
     vmap = np.zeros((size, size))
-    for i in range(len(lon)):# 1000 1250
-        for j in range(len(lon[0])): # 700 900
+    for i in range(len(lon)):  # 1000 1250
+        for j in range(len(lon[0])):  # 700 900
             theta = lat[i][j]
             phi = lon[i][j]
 
@@ -137,9 +140,9 @@ def latlon2pixel(lon, lat, image, header):
                     wy[2, 0:4] = wy[0, 0:4]
                     wy[3, 0:4] = wy[0, 0:4]
 
-                    weight = np.matmul(wx,wy)
+                    weight = np.matmul(wx, wy)
                     # sum_w = sum(sum(weight*data))
-                    vmap[i, j] = sum(sum(weight*data)) / 4 #vmap[545,1259] = [645,1239]
+                    vmap[i, j] = sum(sum(weight * data)) / 4  #vmap[545,1259] = [645,1239]
                 else:
                     vmap[i, j] = np.nan
 
@@ -156,24 +159,30 @@ def lat_lon(pixel):
     x = np.linspace(xmin, xmax, pixel)
     dx = x[1] - x[0]
     dy = 1.3 * dx
-    x = np.arange(-(pixel/4) * dx + dx / 2, (pixel/4) * dx - dx / 2 + dx, dx)
-    y = np.arange(-(pixel/4) * dy + dy / 2, (pixel/4) * dy - dy / 2 + dy, dy)
+    x = np.arange(-(pixel / 4) * dx + dx / 2, (pixel / 4) * dx - dx / 2 + dx, dx)
+    y = np.arange(-(pixel / 4) * dy + dy / 2, (pixel / 4) * dy - dy / 2 + dy, dy)
     [x, y] = np.meshgrid(x, y)
     lon = x / R
     lat = 2 * np.arctan(np.exp(y / R)) - math.pi / 2
     return lon, lat
 
+
 # def remove_blackbg(image):
 if __name__ == "__main__":
-    image_file = fits.open(r'D:\GSU_Assignments\Semester_2\DL\augmentation_engine\bbso_halph_fl_20150831_181839.fts')
+    image_file = fits.open(r'20150807192114Mh.fits.fz')
     header = update_header(image_file[0].header, 0, 0)
     # img = Image.open(r'D:\GSU_Assignments\Semester_2\DL\augmentation_engine_backup\evalutate_augmentation_engine\filament_images\L\2015083118183905.jpg')
     # img = resize_image(img, (565, 1259))
     # img.show()
-    img = Image.open(r'D:\GSU_Assignments\2015\08\31\bbso_halph_fr_20150831_181839.jpg')
+    img = Image.open(r'bbso_halph_fr_20150807_192111.jpg')
     image = np.asarray(img)
     lon, lat = lat_lon(4096)
-    vmap = latlon2pixel(lon, lat, image, header)
+
+    start = perf_counter()
+    vmap = latlon2pixel(lon, lat, image, header)  #takes forever
+    end = perf_counter()
+    print("BENCHMARK: ", end - start)
+
     vmap = np.flipud(vmap)
     vmap = np.fliplr(vmap)
     plt.imshow(vmap, cmap='gray')
